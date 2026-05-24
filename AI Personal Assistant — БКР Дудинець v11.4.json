@@ -1,0 +1,4094 @@
+{
+  "name": "AI Personal Assistant — БКР Дудинець v11.4",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "507b3bdd-88e9-426c-a929-63daab57f3b0",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        9696,
+        3792
+      ],
+      "webhookId": "39e02770-ebb0-4cd2-9491-bdbf29a706fc",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "bb07e521-0fe9-4d08-8b12-e32c4b2f53ac"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "callback"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "09f7c922-7e2f-40f1-8d29-b227e3433365"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "command"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.voice }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "0eea9145-eb2e-494f-abf6-1a84da01e4bd"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "voice"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.photo }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "array",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "76987483-e84f-45b3-bb9a-9195e95a6117"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "photo"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.document }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "75d44651-8efb-4bc3-96df-484e428322fe"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "document"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "da181a2c-a630-4c92-84e4-6d0a5526c83a"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "text"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "ca5ee412-bc4a-435b-9b32-91e9ae9526af",
+      "name": "Message Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        9920,
+        3792
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.from.id }}",
+                    "rightValue": 478106659,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "2e5e2be8-d864-47b5-8917-cca5f13885cf"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "allowed"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "denied"
+        }
+      },
+      "id": "a74fe2f6-1e7d-45b3-a5fc-013bf6f6a386",
+      "name": "Callback Owner Check",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        10128,
+        3104
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "toggle_hitl",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "toggle_hitl"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "change_channel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "change_channel"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "list_channels",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "list_channels"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "close_settings",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "close"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "ff63901d-5294-4288-9165-f1022e65ce8f",
+      "name": "Callback Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        10320,
+        3104
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "settingsRaw",
+        "key": "=settings:{{ $json.callback_query.from.id }}",
+        "keyType": "string",
+        "options": {}
+      },
+      "id": "e0f28b31-9889-4112-a0e3-d2a4c9fed274",
+      "name": "Callback Get Settings",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        10768,
+        2864
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst item = items[0];\nlet trigger = {};\ntry { trigger = $('Telegram Trigger').first().json || {}; } catch (e) {}\nconst cq = trigger.callback_query || {};\nlet settings = {};\ntry { settings = JSON.parse((item && item.json && item.json.settingsRaw) || '{}'); } catch (e) {}\nif (!Array.isArray(settings.channels)) settings.channels = [];\nif (settings.hitl_enabled === undefined) settings.hitl_enabled = true;\nsettings.hitl_enabled = !settings.hitl_enabled;\nconst chId = settings.channels.length > 0 ? settings.channels[0].id : '-1003856051987';\nconst chName = settings.channels.length > 0 ? (settings.channels[0].name || settings.channels[0].id) : 'дефолт';\nconst menuText = '⚙️ *Налаштування*\\n\\n🔧 Модерація: ' + (settings.hitl_enabled ? '✅' : '❌') + '\\n📢 Канал: `' + chId + '`';\nconst keyboard = { inline_keyboard: [\n  [{ text: '🔧 HITL: ' + (settings.hitl_enabled ? '✅' : '❌'), callback_data: 'toggle_hitl' }],\n  [{ text: '📢 Змінити канал', callback_data: 'change_channel' }],\n  [{ text: '📋 Список', callback_data: 'list_channels' }],\n  [{ text: '❌ Закрити', callback_data: 'close_settings' }]\n] };\nreturn [{ json: { settingsToSave: JSON.stringify(settings), userId: cq.from && cq.from.id, chatId: cq.message && cq.message.chat && cq.message.chat.id, messageId: cq.message && cq.message.message_id, callbackId: cq.id, menuText, keyboardJson: JSON.stringify(keyboard) } }];"
+      },
+      "id": "b9b61d41-662d-4f0a-a337-11b38a4540ef",
+      "name": "Toggle HITL Logic",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10944,
+        2864
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=settings:{{ $json.userId }}",
+        "value": "={{ $json.settingsToSave }}",
+        "keyType": "string"
+      },
+      "id": "c2ea394f-a1ad-4d9d-9b91-405f13221a3e",
+      "name": "Toggle HITL Save",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        11152,
+        2864
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $('Telegram Trigger').first().json.callback_query.id }}",
+        "additionalFields": {}
+      },
+      "id": "419b6b53-53f1-4149-9f31-fdfbf246b450",
+      "name": "Answer Callback HITL",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        11312,
+        2864
+      ],
+      "webhookId": "f1f2f8d3-fb8c-44f0-aad8-3461a14d6596",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "editMessageText",
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Telegram Trigger').first().json.callback_query.message.message_id }}",
+        "text": "={{ $('Toggle HITL Logic').first().json.menuText }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "350aa843-dd13-4934-af2c-4c40ab76676a",
+      "name": "Edit Menu HITL",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        11456,
+        2864
+      ],
+      "webhookId": "4a2b3034-2b0b-4b63-927c-922f0bd3d7b2",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let trigger = {};\ntry { trigger = $('Telegram Trigger').first().json || {}; } catch (e) {}\nconst cq = trigger.callback_query || {};\nreturn [{ json: { userId: cq.from && cq.from.id, chatId: cq.message && cq.message.chat && cq.message.chat.id, callbackId: cq.id } }];"
+      },
+      "id": "70a218c0-b7f2-4eb8-b1e2-49cdb7bafed8",
+      "name": "Change Channel Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10752,
+        3008
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=state:{{ $json.userId }}",
+        "value": "awaiting_channel",
+        "keyType": "string",
+        "expire": true,
+        "ttl": 300
+      },
+      "id": "1bac9b60-8527-43e1-99d5-f528bf7e8ff8",
+      "name": "Set State",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        10960,
+        3008
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $('Telegram Trigger').first().json.callback_query.id }}",
+        "additionalFields": {}
+      },
+      "id": "e77b28b3-051a-4051-a712-eed04e42a4fe",
+      "name": "Answer Callback Channel",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        11136,
+        3008
+      ],
+      "webhookId": "ea5c33f6-59ad-4d8e-8638-23c74f4b8dc7",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "text": "📢 *Зміна каналу*\n\nНадішли новий `chat_id` (число). /cancel — скасувати.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "5731fc93-0cdf-42c3-92eb-f2518ff8ddc2",
+      "name": "Send Channel Prompt",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        11296,
+        3008
+      ],
+      "webhookId": "6ec19704-b77c-4e14-9b73-f88c43e3b702",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "settingsRaw",
+        "key": "=settings:{{ $json.callback_query.from.id }}",
+        "keyType": "string",
+        "options": {}
+      },
+      "id": "c38b4d70-3b1e-49a3-8fe9-8843294c6c46",
+      "name": "List Get Settings",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        10768,
+        3136
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst item = items[0];\nlet trigger = {};\ntry { trigger = $('Telegram Trigger').first().json || {}; } catch (e) {}\nconst cq = trigger.callback_query || {};\nlet settings = {};\ntry { settings = JSON.parse((item && item.json && item.json.settingsRaw) || '{}'); } catch (e) {}\nif (!Array.isArray(settings.channels)) settings.channels = [];\n\nconst DEFAULT_CHANNEL = '-1003856051987';\n\nlet text = '📋 *Канали*\\n\\n';\nif (!settings.channels.length) {\n  // Show default channel as the active one\n  text += '🟢 `' + DEFAULT_CHANNEL + '` _(дефолт)_';\n} else {\n  for (let i = 0; i < settings.channels.length; i++) {\n    const ch = settings.channels[i];\n    text += (i === 0 ? '🟢 ' : '⚪ ') + '`' + ch.id + '`';\n    if (ch.name) text += ' — ' + ch.name;\n    text += '\\n';\n  }\n}\n\nreturn [{ json: {\n  chatId: cq.message && cq.message.chat && cq.message.chat.id,\n  callbackId: cq.id,\n  text\n} }];"
+      },
+      "id": "c65c93cf-9405-4aad-a4c4-5d2063c1a74c",
+      "name": "List Channels Build",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10944,
+        3136
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $('Telegram Trigger').first().json.callback_query.id }}",
+        "additionalFields": {}
+      },
+      "id": "8edca5be-672f-428f-8baf-4e5f1df154a5",
+      "name": "Answer Callback List",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        11088,
+        3136
+      ],
+      "webhookId": "cef2bd37-2b43-47ab-9134-ef6d90c3b11f",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "text": "={{ $('List Channels Build').first().json.text }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "da42649d-42c9-4d62-a3f4-8ee858ff9350",
+      "name": "Send Channels List",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        11232,
+        3136
+      ],
+      "webhookId": "b33f96a4-d745-409f-a98b-40dbaef3c637",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let trigger = {};\ntry { trigger = $('Telegram Trigger').first().json || {}; } catch (e) {}\nconst cq = trigger.callback_query || {};\nreturn [{ json: { chatId: cq.message && cq.message.chat && cq.message.chat.id, messageId: cq.message && cq.message.message_id, callbackId: cq.id } }];"
+      },
+      "id": "ee80d8e9-3594-4a14-9000-d8528cb036b9",
+      "name": "Close Menu Prep",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10992,
+        3280
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "callback",
+        "queryId": "={{ $('Telegram Trigger').first().json.callback_query.id }}",
+        "additionalFields": {}
+      },
+      "id": "c7184059-b7db-4f45-8205-7b18af0a0dd6",
+      "name": "Answer Callback Close",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        11152,
+        3280
+      ],
+      "webhookId": "e2be1a0a-142a-4455-ac1a-8aa10647614f",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteMessage",
+        "chatId": "={{ $('Telegram Trigger').first().json.callback_query.message.chat.id }}",
+        "messageId": "={{ $('Telegram Trigger').first().json.callback_query.message.message_id }}"
+      },
+      "id": "c4b14edd-b23e-4d47-b163-9ff157a67d6f",
+      "name": "Delete Menu Message",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        11312,
+        3280
+      ],
+      "webhookId": "9cc81d65-3d80-481e-89db-4ad852306a80",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.from.id }}",
+                    "rightValue": 478106659,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "7b6d2c53-8e1e-45ad-bf7c-55c21ed6b779"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "allowed"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "denied"
+        }
+      },
+      "id": "8d6842f1-d7e9-4d5d-8a19-fc995c0b2415",
+      "name": "Owner Check",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        10128,
+        3264
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "settingsRaw",
+        "key": "=settings:{{ $json.message.from.id }}",
+        "keyType": "string",
+        "options": {}
+      },
+      "id": "1512fcbe-05e7-4303-9f8a-ad707bddaa9f",
+      "name": "Get Settings",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        10448,
+        3328
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputs = $input.all();\nlet trigger = {};\ntry { trigger = $('Telegram Trigger').first().json || {}; } catch (e) {}\nconst text = (trigger.message && trigger.message.text) || '';\nconst parts = text.trim().split(/\\s+/);\nconst cmd = (parts[0] || '').toLowerCase();\nconst chatId = (trigger.message && trigger.message.chat && trigger.message.chat.id) || 0;\nconst tgUserId = (trigger.message && trigger.message.from && trigger.message.from.id) || 0;\nconst userId = 'asst_' + tgUserId;\nconst sessionId = 'session_' + chatId;\n\nconst item = inputs[0] || { json: {} };\nlet settings = {};\ntry { settings = JSON.parse(item.json.settingsRaw || '{}'); } catch (e) {}\nif (!Array.isArray(settings.channels)) settings.channels = [];\nif (settings.hitl_enabled === undefined) settings.hitl_enabled = true;\n\nconst chId = settings.channels.length > 0 ? settings.channels[0].id : '-1003856051987';\nconst chName = settings.channels.length > 0 ? (settings.channels[0].name || chId) : chId;\n\nlet cmdType = 'unknown';\nlet reply = '';\nlet keyboardObj = null;\n\nif (cmd.startsWith('/settings')) {\n  cmdType = 'settings';\n  reply = '⚙️ *Налаштування*\\n\\n🔧 Модерація: ' + (settings.hitl_enabled ? '✅' : '❌') + '\\n📢 Канал: `' + chId + '`';\n  keyboardObj = { inline_keyboard: [\n    [{ text: '🔧 HITL: ' + (settings.hitl_enabled ? '✅' : '❌'), callback_data: 'toggle_hitl' }],\n    [{ text: '📢 Змінити канал', callback_data: 'change_channel' }],\n    [{ text: '📋 Список каналів', callback_data: 'list_channels' }],\n    [{ text: '❌ Закрити', callback_data: 'close_settings' }]\n  ] };\n} else if (cmd.startsWith('/channel')) {\n  cmdType = 'channel';\n  reply = '📢 *Поточний канал для публікацій*\\n\\n`' + chId + '`' + (chName !== chId ? '\\n' + chName : '');\n  keyboardObj = { inline_keyboard: [\n    [{ text: '🔄 Змінити канал', callback_data: 'change_channel' }],\n    [{ text: '📋 Список каналів', callback_data: 'list_channels' }],\n    [{ text: '❌ Закрити', callback_data: 'close_settings' }]\n  ] };\n} else if (cmd === '/memory') {\n  cmdType = 'memory';\n  reply = '';\n} else if (cmd === '/reset') {\n  cmdType = 'reset';\n  reply = '';\n}\n\nreturn [{ json: {\n  cmdType, replyText: reply, chatId, userId, sessionId,\n  keyboardJson: keyboardObj, hasKeyboard: !!keyboardObj\n} }];"
+      },
+      "id": "0b1ff865-d3e5-4a53-a396-b86156cce1bc",
+      "name": "Process Command",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10608,
+        3328
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot8395746901:AAEJgTu98JLzNvw5Ra_7lq2X03b559SCWuE/sendMessage",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "telegramApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $json.chatId }},\n  \"text\": {{ JSON.stringify($json.replyText) }},\n  \"parse_mode\": \"Markdown\",\n  \"reply_markup\": {{ JSON.stringify($json.keyboardJson) }}\n}",
+        "options": {}
+      },
+      "id": "642d3f86-f5fe-4142-9bad-027d378f1448",
+      "name": "Send Settings Reply",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        10880,
+        3328
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "🚫 Доступ заборонено.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "a89af560-4711-4b13-a3ac-7fccfc49bad5",
+      "name": "Access Denied",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        10448,
+        3472
+      ],
+      "webhookId": "e310e77e-cd5b-4a5d-81f0-856012b6c94b",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.voice.file_id }}",
+        "additionalFields": {}
+      },
+      "id": "ac2912df-a10c-4304-ae1a-08041d0ecc1d",
+      "name": "Get Voice File",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        10160,
+        3712
+      ],
+      "webhookId": "4d6bf338-d61d-4d3a-871c-72ddbd48632a",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {
+          "language": "uk"
+        }
+      },
+      "id": "cdf41241-64cc-4075-ab79-bbbc958519cd",
+      "name": "Whisper STT",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        10368,
+        3712
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "7nrUlwmxxszkxoNc",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "v1",
+              "name": "userMessage",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "v2",
+              "name": "chatId",
+              "value": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+              "type": "number"
+            },
+            {
+              "id": "v3",
+              "name": "userName",
+              "value": "={{ $('Telegram Trigger').item.json.message.from.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "v4",
+              "name": "sessionId",
+              "value": "=session_{{ $('Telegram Trigger').item.json.message.chat.id }}",
+              "type": "string"
+            },
+            {
+              "id": "v5",
+              "name": "userId",
+              "value": "=asst_{{ $('Telegram Trigger').item.json.message.from.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ef82788a-a1fd-4aba-85f2-4a8e239970de",
+      "name": "Prepare Voice",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        10592,
+        3712
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "s1",
+              "name": "userMessage",
+              "value": "={{ $json.userMessage }}",
+              "type": "string"
+            },
+            {
+              "id": "s2",
+              "name": "chatId",
+              "value": "={{ $json.chatId }}",
+              "type": "number"
+            },
+            {
+              "id": "s3",
+              "name": "userName",
+              "value": "={{ $json.userName }}",
+              "type": "string"
+            },
+            {
+              "id": "s4",
+              "name": "sessionId",
+              "value": "={{ $json.sessionId }}",
+              "type": "string"
+            },
+            {
+              "id": "s5",
+              "name": "userId",
+              "value": "={{ $json.userId }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4034c54e-b3ea-4688-bea0-bb1b50070722",
+      "name": "Setup Prompt",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        11760,
+        3872
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.photo.slice(-1)[0].file_id }}",
+        "additionalFields": {}
+      },
+      "id": "b00cfb3a-c1f3-4402-aff8-d53505005b9e",
+      "name": "Get Photo File",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        10160,
+        3840
+      ],
+      "webhookId": "fa399616-d4c4-4db0-811c-254dfc21e538",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst item = items[0];\nconst binEntry = item && item.binary && item.binary.data;\nif (!binEntry) throw new Error('No binary photo data');\nconst buffer = await this.helpers.getBinaryDataBuffer(0, 'data');\nconst base64 = buffer.toString('base64');\nlet msg = {};\ntry { msg = $('Telegram Trigger').first().json.message || {}; } catch (e) {}\nconst groupId = msg.media_group_id || '';\nconst myRequestId = Date.now() + '_' + Math.random().toString(36).slice(2, 10);\nconst mime = binEntry.mimeType || 'image/jpeg';\nreturn [{ json: { imageDataUrl: 'data:' + mime + ';base64,' + base64, imageMime: mime, isAlbum: !!groupId, mediaGroupId: groupId, myRequestId }, binary: item.binary }];"
+      },
+      "id": "53a4ecbb-6d53-45bb-82db-21c088c065ca",
+      "name": "Album Detector",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10368,
+        3840
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.isAlbum }}",
+                    "rightValue": "true",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "album"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "single"
+        }
+      },
+      "id": "28df9195-797c-4858-ba6f-c49ee62e2aa2",
+      "name": "Is Album?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        10544,
+        3840
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst item = items[0];\nconst imageDataUrl = item && item.json && item.json.imageDataUrl;\nif (!imageDataUrl) throw new Error('No imageDataUrl');\nconst body = { model: 'gpt-5-mini', messages: [{ role: 'user', content: [\n  { type: 'text', text: 'Опиши українською для SMM. JSON: description, objects, mood, smm_topics, quality' },\n  { type: 'image_url', image_url: { url: imageDataUrl } }\n]}], response_format: { type: 'json_object' } };\nreturn [{ json: { visionBody: JSON.stringify(body) } }];"
+      },
+      "id": "6e95ea35-62e1-404b-8cfa-e37fdc4c5b9d",
+      "name": "Build Vision Body",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        10784,
+        3824
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.visionBody }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "b861f614-a0f3-437d-8d1d-cd10ff0f84a7",
+      "name": "Vision Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        10944,
+        3824
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "7nrUlwmxxszkxoNc",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "p1",
+              "name": "userMessage",
+              "value": "=Фото. Аналіз: {{ $json.choices[0].message.content }}",
+              "type": "string"
+            },
+            {
+              "id": "p2",
+              "name": "chatId",
+              "value": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+              "type": "number"
+            },
+            {
+              "id": "p3",
+              "name": "userName",
+              "value": "={{ $('Telegram Trigger').first().json.message.from.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "p4",
+              "name": "sessionId",
+              "value": "=session_{{ $('Telegram Trigger').first().json.message.chat.id }}",
+              "type": "string"
+            },
+            {
+              "id": "p5",
+              "name": "userId",
+              "value": "=asst_{{ $('Telegram Trigger').first().json.message.from.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "61f7e7a2-48bb-490a-bee9-9d58da86bedf",
+      "name": "Prepare Photo",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        11120,
+        3824
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.document.file_id }}",
+        "additionalFields": {}
+      },
+      "id": "c9f1abec-fca1-4e22-8106-5e88ab4678d1",
+      "name": "Get Document File",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        10160,
+        4064
+      ],
+      "webhookId": "0b48772d-a147-4db0-8d07-73c7b9af6d8c",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "id": "95e40f9e-3690-490e-8c42-5b1d010fb944",
+      "name": "Extract from File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        10368,
+        4064
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d1",
+              "name": "userMessage",
+              "value": "=Документ. {{ ($json.text || '').slice(0, 4000) }}",
+              "type": "string"
+            },
+            {
+              "id": "d2",
+              "name": "chatId",
+              "value": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+              "type": "number"
+            },
+            {
+              "id": "d3",
+              "name": "userName",
+              "value": "={{ $('Telegram Trigger').first().json.message.from.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "d4",
+              "name": "sessionId",
+              "value": "=session_{{ $('Telegram Trigger').first().json.message.chat.id }}",
+              "type": "string"
+            },
+            {
+              "id": "d5",
+              "name": "userId",
+              "value": "=asst_{{ $('Telegram Trigger').first().json.message.from.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6d6af7c2-52c3-4fa4-bba6-e3ecd81592e1",
+      "name": "Prepare Document",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        10592,
+        4064
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "t1",
+              "name": "userMessage",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "t2",
+              "name": "chatId",
+              "value": "={{ $json.message.chat.id }}",
+              "type": "number"
+            },
+            {
+              "id": "t3",
+              "name": "userName",
+              "value": "={{ $json.message.from.first_name }}",
+              "type": "string"
+            },
+            {
+              "id": "t4",
+              "name": "sessionId",
+              "value": "=session_{{ $json.message.chat.id }}",
+              "type": "string"
+            },
+            {
+              "id": "t5",
+              "name": "userId",
+              "value": "=asst_{{ $json.message.from.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c18eff61-60cc-468e-8c7c-fe1801bf3dbc",
+      "name": "Prepare Text",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        10160,
+        4224
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "userState",
+        "key": "=state:{{ $json.userId.replace('asst_', '') }}",
+        "keyType": "string",
+        "options": {}
+      },
+      "id": "afded1a5-7c96-46b3-afe0-37c80436f852",
+      "name": "Check User State",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        11920,
+        3872
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.userState }}",
+                    "rightValue": "awaiting_channel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "8a68b310-d60e-4a39-b9e8-af0da95bf218"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "awaiting_channel"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "normal"
+        }
+      },
+      "id": "cbb31940-4cec-40fd-bcac-d854195d2ce4",
+      "name": "User State?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        12080,
+        3872
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "let setup = {};\ntry { setup = $('Setup Prompt').first().json || {}; } catch (e) {}\nconst userMessage = (setup.userMessage || '').trim();\nconst chatId = setup.chatId;\nif (userMessage === '/cancel') return [{ json: { replyText: '🚫 Скасовано.', chatId, settingsToSave: null } }];\nif (!userMessage.match(/^-?\\d+$/)) return [{ json: { replyText: '❌ Не схоже на chat_id. /cancel — скасувати.', chatId, settingsToSave: null } }];\nconst userId = setup.userId ? setup.userId.replace('asst_', '') : '';\nreturn [{ json: { chatId, userId, newChannelId: userMessage } }];"
+      },
+      "id": "62153884-5169-4012-a819-ab12cc68b0d9",
+      "name": "Channel Input Process",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        12240,
+        3744
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "settingsRaw",
+        "key": "=settings:{{ $json.userId }}",
+        "keyType": "string",
+        "options": {}
+      },
+      "id": "beee10da-5a9a-47a9-bc28-4a1f96191ca3",
+      "name": "Channel Get Settings",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        12400,
+        3744
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst item = items[0];\nlet proc = {};\ntry { proc = $('Channel Input Process').first().json || {}; } catch (e) {}\nlet settings = {};\ntry { settings = JSON.parse((item && item.json && item.json.settingsRaw) || '{}'); } catch (e) {}\nif (!Array.isArray(settings.channels)) settings.channels = [];\nif (settings.hitl_enabled === undefined) settings.hitl_enabled = true;\nconst newId = proc.newChannelId;\nif (settings.channels.length > 0) settings.channels[0] = { id: newId, name: settings.channels[0].name || 'Канал' };\nelse settings.channels.push({ id: newId, name: 'Канал' });\nreturn [{ json: { settingsToSave: JSON.stringify(settings), userId: proc.userId, chatId: proc.chatId, replyText: '✅ Канал оновлено: `' + newId + '`' } }];"
+      },
+      "id": "e19f2132-7e4d-4446-99c8-de734f1d0da8",
+      "name": "Channel Update Build",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        12560,
+        3744
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=settings:{{ $json.userId }}",
+        "value": "={{ $json.settingsToSave }}",
+        "keyType": "string"
+      },
+      "id": "6e62371b-09b6-4695-9c53-dfb6a07669d3",
+      "name": "Channel Save",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        12720,
+        3744
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=state:{{ $json.userId }}"
+      },
+      "id": "74d40209-e1b6-47d9-9227-00a01c3f64e6",
+      "name": "Channel Clear State",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        12880,
+        3744
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.replyText }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "dc66b4bb-2a44-41f4-9431-6e51286fe2e5",
+      "name": "Channel Input Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        13040,
+        3744
+      ],
+      "webhookId": "a19cf96e-4226-4f43-9376-015180105d82",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendChatAction",
+        "chatId": "={{ $('Setup Prompt').first().json.chatId }}"
+      },
+      "id": "01fc8bb3-fe75-42dc-891b-f97e19c951cd",
+      "name": "Send Typing",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        12240,
+        4016
+      ],
+      "webhookId": "0b730bc3-234b-4e8e-a705-cb414d32340f",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "settingsRaw",
+        "key": "=settings:{{ $('Setup Prompt').first().json.userId.replace('asst_', '') }}",
+        "keyType": "string",
+        "options": {}
+      },
+      "id": "c00be87a-fd6d-4a89-8159-fc31a9559ab4",
+      "name": "Read User Settings",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        12400,
+        4016
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "let setup = {};\ntry { setup = $('Setup Prompt').first().json || {}; } catch (e) {}\nconst items = $input.all();\nconst first = items[0];\nconst settingsRaw = (first && first.json && first.json.settingsRaw) || null;\nlet settings = {};\ntry { if (settingsRaw) settings = JSON.parse(settingsRaw); } catch (e) {}\nconst hitlEnabled = settings.hitl_enabled !== false;\nconst channels = Array.isArray(settings.channels) ? settings.channels : [];\nconst defaultChannel = '-1003856051987';\nconst publishChannelId = channels.length > 0 ? channels[0].id : defaultChannel;\nconst publishChannelName = channels.length > 0 ? (channels[0].name || channels[0].id) : 'дефолт';\nreturn [{ json: Object.assign({}, setup, { hitlEnabled, publishChannelId, publishChannelName, channelCount: channels.length }) }];"
+      },
+      "id": "f161fc40-a5ad-4dbb-8afa-0f63981a439a",
+      "name": "Parse User Settings",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        12560,
+        4016
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.getzep.com/api/v2/users/{{ $json.userId }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "6abd73c7-c29a-4cfc-8a71-f804322a3ec4",
+      "name": "ZEP Check User",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        12720,
+        4016
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "pNUsrMVgh2ZX8bmK",
+          "name": "Zep"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.user_id }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "exists"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.error.status }}",
+                    "rightValue": 404,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "new"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "c273988b-a9ac-46db-b17d-df5d998b3a05",
+      "name": "User Exists?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        12880,
+        4016
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.getzep.com/api/v2/threads/{{ $('Setup Prompt').first().json.userId }}/messages?lastn=30",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "1ed1c789-634b-4aa7-a22e-512f83bb801b",
+      "name": "ZEP Get Thread Messages",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        13200,
+        3920
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "pNUsrMVgh2ZX8bmK",
+          "name": "Zep"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.getzep.com/api/v2/graph/search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"user_id\": \"{{ $('Setup Prompt').first().json.userId }}\",\n  \"query\": \"{{ $('Setup Prompt').first().json.userMessage }}\",\n  \"scope\": \"edges\",\n  \"limit\": 15\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "66d21b2d-2f9b-4d68-9814-8ba97a7769da",
+      "name": "ZEP Get User Graph",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        13360,
+        3920
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "pNUsrMVgh2ZX8bmK",
+          "name": "Zep"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Setup Prompt').first().json.userMessage }}",
+        "options": {
+          "systemMessage": "=You are personal AI assistant. ALWAYS respond in Ukrainian.\n\nMarkers:\n[IMAGE: english | size=square|portrait|landscape quality=low|medium|high n=1-4] — generate image\n[IMAGE_EDIT: english] — edit user's photo\n[PUBLISH] — publish to channel (only on опублікуй/запости)\nCombine [IMAGE]+[PUBLISH] for image publishing.\n\nTools: Search_knowledge, Save_knowledge.\n\nContext\nUser: {{ $('Setup Prompt').first().json.userName }} | HITL: {{ $('Parse User Settings').first().json.hitlEnabled ? 'on' : 'off' }} | Channel: {{ $('Parse User Settings').first().json.publishChannelName }}\nGraph: {{ JSON.stringify($('ZEP Get User Graph').first().json.edges || []) }}\nHistory: {{ JSON.stringify($('ZEP Get Thread Messages').first().json.messages || []) }}",
+          "maxIterations": 8,
+          "passthroughBinaryImages": false
+        }
+      },
+      "id": "d9c7036d-f67e-4e91-b7f4-7b20062f86a9",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        13488,
+        3920
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "id": "e6b636dc-a290-4374-ac0f-8d7e5795884e",
+      "name": "GPT-5-mini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        13408,
+        4224
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "7nrUlwmxxszkxoNc",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Setup Prompt').first().json.sessionId }}",
+        "sessionTTL": 7200
+      },
+      "id": "6357c8dc-267f-4630-8e84-1eff7806a9c7",
+      "name": "Redis Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        13568,
+        4224
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Searches user's personal knowledge graph (ZEP).",
+        "method": "POST",
+        "url": "https://api.getzep.com/api/v2/graph/search",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "zepApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"user_id\": \"{{ $('Setup Prompt').first().json.userId }}\",\n  \"query\": \"={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('search_query', 'q') }}\",\n  \"scope\": \"edges\",\n  \"limit\": 5\n}",
+        "options": {}
+      },
+      "id": "de33cab9-edc0-42a7-8a71-038d634fbe55",
+      "name": "Search_knowledge",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        13728,
+        4224
+      ],
+      "credentials": {
+        "zepApi": {
+          "id": "uTrpuiIG5LTFwrkc",
+          "name": "Zep Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Saves a fact to ZEP graph.",
+        "method": "POST",
+        "url": "https://api.getzep.com/api/v2/graph",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "zepApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"user_id\": \"{{ $('Setup Prompt').first().json.userId }}\",\n  \"type\": \"text\",\n  \"data\": \"={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('knowledge_data', 'info') }}\"\n}",
+        "options": {}
+      },
+      "id": "71dc6847-1610-4176-a195-88ae793eba1c",
+      "name": "Save_knowledge",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        13888,
+        4224
+      ],
+      "credentials": {
+        "zepApi": {
+          "id": "uTrpuiIG5LTFwrkc",
+          "name": "Zep Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.getzep.com/api/v2/users",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"user_id\": \"{{ $('Setup Prompt').first().json.userId }}\",\n  \"first_name\": \"{{ $('Telegram Trigger').first().json.message.from.first_name }}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "1d7cc4a0-1d9a-4de8-9dd0-b43147d73798",
+      "name": "ZEP Add User",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        12928,
+        4288
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "pNUsrMVgh2ZX8bmK",
+          "name": "Zep"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.getzep.com/api/v2/threads",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"thread_id\": \"{{ $('Setup Prompt').first().json.userId }}\",\n  \"user_id\": \"{{ $('Setup Prompt').first().json.userId }}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "bc3ca410-99a1-44d2-a55f-773c507947cd",
+      "name": "ZEP Create Thread",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        13088,
+        4288
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "pNUsrMVgh2ZX8bmK",
+          "name": "Zep"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputs = $input.all();\nconst item = inputs[0];\nlet setup = {};\ntry { setup = $('Setup Prompt').first().json || {}; } catch (e) {}\nconst userMessage = setup.userMessage || '';\nconst output = (item && item.json && item.json.output) || '';\nconst body = { messages: [\n  { role: 'user', name: 'HUMAN', content: userMessage },\n  { role: 'assistant', name: 'AI', content: output }\n]};\nreturn [{ json: { zepBody: JSON.stringify(body) } }];"
+      },
+      "id": "24ca1d25-3422-4706-9a82-b47181309e01",
+      "name": "Build ZEP Save Body",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        13776,
+        3920
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.getzep.com/api/v2/threads/{{ $('Setup Prompt').first().json.userId }}/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.zepBody }}",
+        "options": {}
+      },
+      "id": "023c4ff1-ea28-462f-8070-e9df7fa497e9",
+      "name": "Save to ZEP",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        13920,
+        3920
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "pNUsrMVgh2ZX8bmK",
+          "name": "Zep"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('AI Agent').first().json.output }}",
+                    "rightValue": "[IMAGE_EDIT:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "edit"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('AI Agent').first().json.output }}",
+                    "rightValue": "[IMAGE:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "image"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('AI Agent').first().json.output }}",
+                    "rightValue": "[PUBLISH]",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "publish"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra",
+          "ignoreCase": true,
+          "renameFallbackOutput": "text"
+        }
+      },
+      "id": "c3a97e28-0b33-40ff-8e8a-17315d1384b3",
+      "name": "Route Response",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        14080,
+        3920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "let out = '';\ntry { out = $('AI Agent').first().json.output || ''; } catch (e) {}\nconst m = out.match(/\\[IMAGE_EDIT:\\s*([^\\]]+)\\]/i);\nconst inner = m ? m[1].trim() : 'edit';\nconst parts = inner.split(/\\s*\\|\\s*/);\nconst imagePrompt = parts[0].trim();\nconst sizeMap = { square: '1024x1024', portrait: '1024x1536', landscape: '1536x1024', auto: 'auto' };\nlet imageSize = '1024x1024', imageQuality = 'medium', imageN = 1;\nif (parts.length > 1) {\n  const opts = [...parts.slice(1).join(' ').matchAll(/(\\w+)=(\\S+)/g)];\n  for (const o of opts) { const k = o[1].toLowerCase(); let v = o[2];\n    if (k === 'size') imageSize = sizeMap[v.toLowerCase()] || v;\n    else if (k === 'quality') imageQuality = v.toLowerCase();\n    else if (k === 'n') imageN = Math.min(Math.max(parseInt(v) || 1, 1), 4);\n  }\n}\nconst hasPublish = /\\[PUBLISH\\]/i.test(out);\nlet caption = out.replace(/\\[IMAGE_EDIT:[^\\]]*\\]/gi, '').replace(/\\[PUBLISH\\]/gi, '').trim();\nreturn [{ json: { imagePrompt, imageSize, imageQuality, imageN, caption, hasPublish } }];"
+      },
+      "id": "4d25da7d-03c1-4b1a-a35d-4702b597db7e",
+      "name": "Extract Edit Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        14240,
+        3712
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $('Telegram Trigger').first().json.message.photo.slice(-1)[0].file_id }}",
+        "additionalFields": {}
+      },
+      "id": "c0ed40f8-0474-418a-8c7d-fbd3ad5ac723",
+      "name": "Re-fetch Photo for Edit",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        14400,
+        3712
+      ],
+      "webhookId": "e69530e5-c79d-4775-9714-cb6cfd7bcade",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/images/edits",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "gpt-image-1"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $('Extract Edit Prompt').first().json.imagePrompt }}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "image",
+              "inputDataFieldName": "data"
+            },
+            {
+              "name": "n",
+              "value": "={{ $('Extract Edit Prompt').first().json.imageN }}"
+            },
+            {
+              "name": "size",
+              "value": "={{ $('Extract Edit Prompt').first().json.imageSize }}"
+            },
+            {
+              "name": "quality",
+              "value": "={{ $('Extract Edit Prompt').first().json.imageQuality }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "1ea5ba3a-7a80-4744-86eb-343270dfb1d2",
+      "name": "Edit Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        14560,
+        3712
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "7nrUlwmxxszkxoNc",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nlet caption = '', hasPublish = false;\ntry { const ext = $('Extract Edit Prompt').first().json; caption = ext.caption || ''; hasPublish = ext.hasPublish || false; } catch (e) {}\nconst out = [];\nfor (const item of items) { const dataArr = (item.json && item.json.data) || [];\n  for (let i = 0; i < dataArr.length; i++) { const b64 = dataArr[i].b64_json;\n    if (!b64) continue;\n    out.push({ json: { caption, hasPublish, imageIndex: i + 1, imageTotal: dataArr.length }, binary: { image: { data: b64, mimeType: 'image/png', fileName: 'edited_' + (i + 1) + '.png' } } });\n  } }\nif (out.length === 0) throw new Error('No images');\nreturn out;"
+      },
+      "id": "8fef398e-a247-4180-a1eb-c919421e3125",
+      "name": "Edit Result to Binary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        14720,
+        3712
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Setup Prompt').first().json.chatId }}",
+        "binaryData": true,
+        "binaryPropertyName": "image",
+        "additionalFields": {
+          "caption": "={{ $('Edit Result to Binary').first().json.caption }}"
+        }
+      },
+      "id": "fd032189-1bf4-43a4-9230-76dd945d4ca9",
+      "name": "Send Edit to User",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        14880,
+        3616
+      ],
+      "webhookId": "7c8a74ab-14d6-4bda-acad-b4c4796ec52b",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let out = '';\ntry { out = $('AI Agent').first().json.output || ''; } catch (e) {}\nconst m = out.match(/\\[IMAGE:\\s*([^\\]]+)\\]/i);\nconst inner = m ? m[1].trim() : 'image';\nconst parts = inner.split(/\\s*\\|\\s*/);\nconst imagePrompt = parts[0].trim();\nconst sizeMap = { square: '1024x1024', portrait: '1024x1536', landscape: '1536x1024', auto: 'auto' };\nlet imageSize = '1024x1024', imageQuality = 'medium', imageN = 1;\nif (parts.length > 1) {\n  const opts = [...parts.slice(1).join(' ').matchAll(/(\\w+)=(\\S+)/g)];\n  for (const o of opts) { const k = o[1].toLowerCase(); let v = o[2];\n    if (k === 'size') imageSize = sizeMap[v.toLowerCase()] || v;\n    else if (k === 'quality') imageQuality = v.toLowerCase();\n    else if (k === 'n') imageN = Math.min(Math.max(parseInt(v) || 1, 1), 4);\n  }\n}\nconst hasPublish = /\\[PUBLISH\\]/i.test(out);\nlet caption = out.replace(/\\[IMAGE:[^\\]]*\\]/gi, '').replace(/\\[PUBLISH\\]/gi, '').trim();\nreturn [{ json: { imagePrompt, imageSize, imageQuality, imageN, caption, hasPublish } }];"
+      },
+      "id": "f79b23a3-edac-4c1a-a7f8-0d1a7647671b",
+      "name": "Extract Gen Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        14240,
+        3920
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/images/generations",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-image-1\",\n  \"prompt\": \"{{ $json.imagePrompt }}\",\n  \"n\": {{ $json.imageN }},\n  \"size\": \"{{ $json.imageSize }}\",\n  \"quality\": \"{{ $json.imageQuality }}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "8a9314e6-546d-4aeb-b549-f2844c465be6",
+      "name": "Generate Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        14400,
+        3920
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "7nrUlwmxxszkxoNc",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nlet caption = '', hasPublish = false;\ntry { const ext = $('Extract Gen Prompt').first().json; caption = ext.caption || ''; hasPublish = ext.hasPublish || false; } catch (e) {}\nconst out = [];\nfor (const item of items) { const dataArr = (item.json && item.json.data) || [];\n  for (let i = 0; i < dataArr.length; i++) { const b64 = dataArr[i].b64_json;\n    if (!b64) continue;\n    out.push({ json: { caption, hasPublish, imageIndex: i + 1, imageTotal: dataArr.length }, binary: { image: { data: b64, mimeType: 'image/png', fileName: 'generated_' + (i + 1) + '.png' } } });\n  } }\nif (out.length === 0) throw new Error('No images');\nreturn out;"
+      },
+      "id": "7346bb81-718d-49d0-8b2a-f4e70be4c275",
+      "name": "Gen Result to Binary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        14560,
+        3920
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Setup Prompt').first().json.chatId }}",
+        "binaryData": true,
+        "binaryPropertyName": "image",
+        "additionalFields": {
+          "caption": "={{ $json.imageTotal > 1 ? '[' + $json.imageIndex + '/' + $json.imageTotal + '] ' : '' }}{{ $json.caption }}"
+        }
+      },
+      "id": "f4fa31bc-4ead-430e-856b-9f1fa3987fcb",
+      "name": "Send Gen to User",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        14880,
+        3872
+      ],
+      "webhookId": "d300adb7-38d0-4dd5-8259-3b043b54f60d",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Parse User Settings').first().json.hitlEnabled }}",
+                    "rightValue": "true",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "on"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "off"
+        }
+      },
+      "id": "8a27748e-f090-4c08-9d0c-bb1ec63807e7",
+      "name": "HITL Toggle?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        14256,
+        4176
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "chatId": "={{ $('Setup Prompt').first().json.chatId }}",
+        "message": "={{ $('AI Agent').first().json.output.replace('[PUBLISH]', '').trim() }}\n\n📋 Перевірте:",
+        "responseType": "customForm",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Опублікувати?",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "✅ Так"
+                  },
+                  {
+                    "option": "🔄 Ні"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Правки",
+              "fieldType": "textarea"
+            }
+          ]
+        },
+        "options": {
+          "messageButtonLabel": "Відповісти",
+          "limitWaitTime": {
+            "values": {
+              "resumeAmount": 15,
+              "resumeUnit": "minutes"
+            }
+          },
+          "appendAttribution": false
+        }
+      },
+      "id": "4a0771c6-a693-4189-9bc1-100e1a0ad955",
+      "name": "Send & Wait Approval",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        14416,
+        4144
+      ],
+      "webhookId": "f23cf8fe-c72a-4996-91cf-6adac23af23b",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data['Опублікувати?'] }}",
+                    "rightValue": "Так",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "approved"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data['Опублікувати?'] }}",
+                    "rightValue": "Ні",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "rejected"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "4129b80c-af53-4bd7-9f4b-13f98a3aab15",
+      "name": "Approval?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        14576,
+        4144
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Parse User Settings').first().json.publishChannelId }}",
+        "text": "={{ $('AI Agent').first().json.output.replace('[PUBLISH]', '').trim() }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "ce6ab029-b104-4653-9fb0-16c98e6984c2",
+      "name": "Publish Text to Channel",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        14736,
+        4112
+      ],
+      "webhookId": "c35c8390-234c-439e-8e7e-4448dec1c2ef",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "✅ Опубліковано!",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "6a6c3240-67c7-4ba3-8cb6-3f3f94a2c8c6",
+      "name": "Confirm Published",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        14896,
+        4176
+      ],
+      "webhookId": "93cc57e3-d25f-4abe-9f28-10f8a66b9066",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Setup Prompt').first().json.chatId }}",
+        "text": "=🔄 {{ $json.data['Правки'] || 'без коментарів' }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "db2f171b-57d1-4915-ada6-6b84749687a2",
+      "name": "Reject Notification",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        14736,
+        4240
+      ],
+      "webhookId": "17f4181f-a165-4b1e-870e-ffc9ee444342",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Parse User Settings').first().json.publishChannelId }}",
+        "text": "={{ $('AI Agent').first().json.output.replace('[PUBLISH]', '').trim() }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "b67b348d-a363-4e33-bd16-c9af2bfe00b7",
+      "name": "Publish Text Direct",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        14416,
+        4256
+      ],
+      "webhookId": "7ce5d1c3-29f2-4be6-823a-9c2a99984e18",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Edit Result to Binary').first().json.hasPublish }}",
+                    "rightValue": "true",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "publish"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "skip"
+        }
+      },
+      "id": "9a1440f2-537a-46b0-9ebe-40a200c526bd",
+      "name": "Edit Publish?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        14880,
+        3728
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Parse User Settings').first().json.publishChannelId }}",
+        "binaryData": true,
+        "binaryPropertyName": "image",
+        "additionalFields": {
+          "caption": "={{ $('Edit Result to Binary').first().json.caption }}"
+        }
+      },
+      "id": "6ee500c3-d853-4290-bede-84ffbb3279fb",
+      "name": "Publish Edit to Channel",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        15040,
+        3728
+      ],
+      "webhookId": "da214af1-b162-4694-a1bf-8f5784b98b44",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Gen Result to Binary').first().json.hasPublish }}",
+                    "rightValue": "true",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "publish"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "skip"
+        }
+      },
+      "id": "e6908b81-4f66-4623-bceb-7d1349a297a3",
+      "name": "Gen Publish?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        14880,
+        4000
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Parse User Settings').first().json.publishChannelId }}",
+        "binaryData": true,
+        "binaryPropertyName": "image",
+        "additionalFields": {}
+      },
+      "id": "ad457cf6-4310-4494-9f87-606c602e167e",
+      "name": "Publish Gen to Channel",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        15040,
+        4000
+      ],
+      "webhookId": "dbefeacb-68b2-4df7-afc7-15871b435384",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Setup Prompt').first().json.chatId }}",
+        "text": "={{ $('AI Agent').first().json.output }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "360b87a1-a8db-4efa-b574-1e0f6f7ced92",
+      "name": "Send Text Response",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        14240,
+        4432
+      ],
+      "webhookId": "33aea12a-eb3a-47a7-bb7c-4f495c1f483f",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1mRa1CfAgYcWv1a_w-F7TOg66a_IM9swbi41PygPNVRA",
+          "mode": "list",
+          "cachedResultName": "BKR"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "timestamp": "={{ $now.toISO() }}",
+            "chat_id": "={{ $('Setup Prompt').first().json.chatId }}",
+            "user_name": "={{ $('Setup Prompt').first().json.userName }}",
+            "user_message": "={{ $('Setup Prompt').first().json.userMessage }}",
+            "bot_response": "={{ $('AI Agent').first().json.output }}",
+            "session_id": "={{ $('Setup Prompt').first().json.sessionId }}"
+          },
+          "matchingColumns": [
+            "timestamp"
+          ],
+          "schema": [
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "user_name",
+              "displayName": "user_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "user_message",
+              "displayName": "user_message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "bot_response",
+              "displayName": "bot_response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "2d433273-966b-472c-81d7-cceb726d0055",
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        14400,
+        4432
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2d590WWMdJHMZFTM",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.cmdType }}",
+                    "rightValue": "settings",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "settings"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.cmdType }}",
+                    "rightValue": "channel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "channel"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.cmdType }}",
+                    "rightValue": "memory",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "memory"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.cmdType }}",
+                    "rightValue": "reset",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "reset"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "df466f7b-e3e9-40e8-9a3d-960a9353b36b",
+      "name": "Cmd Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        10736,
+        3424
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.getzep.com/api/v2/graph/search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"user_id\": \"{{ $json.userId }}\",\n  \"query\": \"facts about user\",\n  \"scope\": \"edges\",\n  \"limit\": 30\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "f416bb3b-a3eb-4249-9d68-7b84a01b3f66",
+      "name": "ZEP Memory Query",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        11008,
+        3440
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "pNUsrMVgh2ZX8bmK",
+          "name": "Zep"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const trigger = $('Telegram Trigger').first().json || {};\nconst chatId = (trigger.message && trigger.message.chat && trigger.message.chat.id) || 0;\nconst item = $input.first().json || {};\nconst edges = item.edges || [];\n\nlet reply;\nif (!edges.length) {\n  reply = \"🧠 *Я ще не запам'ятав нічого про тебе.*\\n\\nНапиши «запам'ятай, що…» — і я збережу факт у довготривалу пам'ять.\";\n} else {\n  const lines = edges.slice(0, 20).map((e, i) => {\n    const fact = e.fact || e.summary || e.name || JSON.stringify(e).slice(0, 200);\n    return (i + 1) + \". \" + fact;\n  });\n  reply = \"🧠 *Що я пам'ятаю про тебе:*\\n\\n\" + lines.join(\"\\n\");\n  if (edges.length > 20) reply += \"\\n\\n_…і ще \" + (edges.length - 20) + \" фактів_\";\n}\nreturn [{ json: { chatId, replyText: reply } }];"
+      },
+      "id": "a8598b6e-1e42-4e43-8036-22f1e6846923",
+      "name": "Format Memory",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        11168,
+        3440
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.replyText }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "7ebbc3d7-8141-4754-9394-a20ebdd363eb",
+      "name": "Send Memory",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        11328,
+        3440
+      ],
+      "webhookId": "a599dc6c-9ced-4f99-a35f-9abe92dbbc01",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $json.sessionId }}"
+      },
+      "id": "901d7822-7f41-4130-9589-e8ff15957e56",
+      "name": "Redis Reset",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        11008,
+        3584
+      ],
+      "credentials": {
+        "redis": {
+          "id": "QGH33P5EGd0nIyba",
+          "name": "Redis account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const trigger = $('Telegram Trigger').first().json || {};\nconst chatId = (trigger.message && trigger.message.chat && trigger.message.chat.id) || 0;\nconst reply = \"✨ *Контекст поточної розмови очищено*\\n\\nКороткострокова пам'ять (історія чату) скинута. Довготривалі факти про тебе у ZEP залишаються — якщо хочеш видалити і їх, напиши «забудь усе про мене».\";\nreturn [{ json: { chatId, replyText: reply } }];"
+      },
+      "id": "31297ad1-a656-44be-bdad-c47ff72a0dac",
+      "name": "Reset Done",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        11168,
+        3584
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.replyText }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "c9f167f9-2e1d-41e7-bf39-d660f1ce348e",
+      "name": "Send Reset",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        11328,
+        3584
+      ],
+      "webhookId": "a599dc6c-9ced-4f99-a35f-9abe92dbbc02",
+      "credentials": {
+        "telegramApi": {
+          "id": "prGfzbomgJIreSkJ",
+          "name": "BKRbot"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Message Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Type": {
+      "main": [
+        [
+          {
+            "node": "Callback Owner Check",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Owner Check",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Voice File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Photo File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Document File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Callback Owner Check": {
+      "main": [
+        [
+          {
+            "node": "Callback Router",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Callback Router": {
+      "main": [
+        [
+          {
+            "node": "Callback Get Settings",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Change Channel Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "List Get Settings",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Close Menu Prep",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Callback Get Settings": {
+      "main": [
+        [
+          {
+            "node": "Toggle HITL Logic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Toggle HITL Logic": {
+      "main": [
+        [
+          {
+            "node": "Toggle HITL Save",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Toggle HITL Save": {
+      "main": [
+        [
+          {
+            "node": "Answer Callback HITL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer Callback HITL": {
+      "main": [
+        [
+          {
+            "node": "Edit Menu HITL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Change Channel Prompt": {
+      "main": [
+        [
+          {
+            "node": "Set State",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set State": {
+      "main": [
+        [
+          {
+            "node": "Answer Callback Channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer Callback Channel": {
+      "main": [
+        [
+          {
+            "node": "Send Channel Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Get Settings": {
+      "main": [
+        [
+          {
+            "node": "List Channels Build",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Channels Build": {
+      "main": [
+        [
+          {
+            "node": "Answer Callback List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer Callback List": {
+      "main": [
+        [
+          {
+            "node": "Send Channels List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Close Menu Prep": {
+      "main": [
+        [
+          {
+            "node": "Answer Callback Close",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer Callback Close": {
+      "main": [
+        [
+          {
+            "node": "Delete Menu Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Owner Check": {
+      "main": [
+        [
+          {
+            "node": "Get Settings",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Access Denied",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Settings": {
+      "main": [
+        [
+          {
+            "node": "Process Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Voice File": {
+      "main": [
+        [
+          {
+            "node": "Whisper STT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Whisper STT": {
+      "main": [
+        [
+          {
+            "node": "Prepare Voice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Voice": {
+      "main": [
+        [
+          {
+            "node": "Setup Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Setup Prompt": {
+      "main": [
+        [
+          {
+            "node": "Check User State",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Photo File": {
+      "main": [
+        [
+          {
+            "node": "Album Detector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Album Detector": {
+      "main": [
+        [
+          {
+            "node": "Is Album?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Album?": {
+      "main": [
+        [
+          {
+            "node": "Build Vision Body",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Vision Body",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Vision Body": {
+      "main": [
+        [
+          {
+            "node": "Vision Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vision Analysis": {
+      "main": [
+        [
+          {
+            "node": "Prepare Photo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Photo": {
+      "main": [
+        [
+          {
+            "node": "Setup Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Document File": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Prepare Document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Document": {
+      "main": [
+        [
+          {
+            "node": "Setup Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Text": {
+      "main": [
+        [
+          {
+            "node": "Setup Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check User State": {
+      "main": [
+        [
+          {
+            "node": "User State?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User State?": {
+      "main": [
+        [
+          {
+            "node": "Channel Input Process",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Typing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channel Input Process": {
+      "main": [
+        [
+          {
+            "node": "Channel Get Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channel Get Settings": {
+      "main": [
+        [
+          {
+            "node": "Channel Update Build",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channel Update Build": {
+      "main": [
+        [
+          {
+            "node": "Channel Save",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channel Save": {
+      "main": [
+        [
+          {
+            "node": "Channel Clear State",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channel Clear State": {
+      "main": [
+        [
+          {
+            "node": "Channel Input Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Typing": {
+      "main": [
+        [
+          {
+            "node": "Read User Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read User Settings": {
+      "main": [
+        [
+          {
+            "node": "Parse User Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse User Settings": {
+      "main": [
+        [
+          {
+            "node": "ZEP Check User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ZEP Check User": {
+      "main": [
+        [
+          {
+            "node": "User Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User Exists?": {
+      "main": [
+        [
+          {
+            "node": "ZEP Get Thread Messages",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ZEP Add User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ZEP Get Thread Messages": {
+      "main": [
+        [
+          {
+            "node": "ZEP Get User Graph",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ZEP Get User Graph": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Build ZEP Save Body",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-5-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search_knowledge": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save_knowledge": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ZEP Add User": {
+      "main": [
+        [
+          {
+            "node": "ZEP Create Thread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ZEP Create Thread": {
+      "main": [
+        [
+          {
+            "node": "ZEP Get Thread Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build ZEP Save Body": {
+      "main": [
+        [
+          {
+            "node": "Save to ZEP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to ZEP": {
+      "main": [
+        [
+          {
+            "node": "Route Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Response": {
+      "main": [
+        [
+          {
+            "node": "Extract Edit Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Gen Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HITL Toggle?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Text Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Edit Prompt": {
+      "main": [
+        [
+          {
+            "node": "Re-fetch Photo for Edit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Re-fetch Photo for Edit": {
+      "main": [
+        [
+          {
+            "node": "Edit Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Image": {
+      "main": [
+        [
+          {
+            "node": "Edit Result to Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Result to Binary": {
+      "main": [
+        [
+          {
+            "node": "Send Edit to User",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Publish?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Gen Prompt": {
+      "main": [
+        [
+          {
+            "node": "Generate Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Image": {
+      "main": [
+        [
+          {
+            "node": "Gen Result to Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gen Result to Binary": {
+      "main": [
+        [
+          {
+            "node": "Send Gen to User",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Gen Publish?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HITL Toggle?": {
+      "main": [
+        [
+          {
+            "node": "Send & Wait Approval",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Publish Text Direct",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send & Wait Approval": {
+      "main": [
+        [
+          {
+            "node": "Approval?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approval?": {
+      "main": [
+        [
+          {
+            "node": "Publish Text to Channel",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reject Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Text to Channel": {
+      "main": [
+        [
+          {
+            "node": "Confirm Published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Text Direct": {
+      "main": [
+        [
+          {
+            "node": "Confirm Published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Publish?": {
+      "main": [
+        [
+          {
+            "node": "Publish Edit to Channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gen Publish?": {
+      "main": [
+        [
+          {
+            "node": "Publish Gen to Channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Text Response": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Command": {
+      "main": [
+        [
+          {
+            "node": "Cmd Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cmd Router": {
+      "main": [
+        [
+          {
+            "node": "Send Settings Reply",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Settings Reply",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ZEP Memory Query",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis Reset",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ZEP Memory Query": {
+      "main": [
+        [
+          {
+            "node": "Format Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Memory": {
+      "main": [
+        [
+          {
+            "node": "Send Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Reset": {
+      "main": [
+        [
+          {
+            "node": "Reset Done",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reset Done": {
+      "main": [
+        [
+          {
+            "node": "Send Reset",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "versionId": "dca3e36f-7342-4166-9d37-d0445b5615b1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3708d9c5d9b19d2e763e451fe6b62f39dcb7f5e9a1ee167f20bd5d9e18b8da7b"
+  },
+  "id": "oNN1P9EUozpbF2y5",
+  "tags": [
+    {
+      "updatedAt": "2026-02-13T09:38:09.544Z",
+      "createdAt": "2026-02-13T09:38:09.544Z",
+      "id": "24oXTzkFwa4vdDJV",
+      "name": "Telegram"
+    },
+    {
+      "updatedAt": "2026-02-16T09:59:50.961Z",
+      "createdAt": "2026-02-16T09:59:50.961Z",
+      "id": "JuTfG2AeZXenOMjQ",
+      "name": "3-Tier Memory"
+    },
+    {
+      "updatedAt": "2026-02-13T09:38:09.474Z",
+      "createdAt": "2026-02-13T09:38:09.474Z",
+      "id": "WaiZxgj0LYPxogC6",
+      "name": "AI"
+    },
+    {
+      "updatedAt": "2026-02-13T10:05:02.128Z",
+      "createdAt": "2026-02-13T10:05:02.128Z",
+      "id": "kpliF5fOJHF3myF8",
+      "name": "БКР"
+    },
+    {
+      "updatedAt": "2026-02-16T09:59:50.913Z",
+      "createdAt": "2026-02-16T09:59:50.913Z",
+      "id": "z7nvq4lU7mDe2psH",
+      "name": "ZEP"
+    }
+  ]
+}
