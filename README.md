@@ -2,8 +2,6 @@
 
 **Тема роботи:** Розроблення інтелектуального агента персонального асистента з функціями відповіді на запитання та генерації контенту.
 
-**Topic (EN):** Development of an Intelligent Personal Assistant Agent with Question Answering and Content Generation Functions.
-
 **Автор:** Дудинець Ростислав Андрійович, студент групи 4CS-42, спеціальність 122 «Комп'ютерні науки», ПЗВО «ІТ СТЕП Університет».
 
 **Науковий керівник:** Дульнявка Леся Іванівна, Competency Lead, Test Leader, Eleks Holding OÜ.
